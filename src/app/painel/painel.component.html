@@ -1,0 +1,33 @@
+<div class="container mt-5">
+    <div class="container-fluid p-3 bg-light shadow rounded">
+        <div class="row justify-content-between">
+            <div class="col-sm-6">
+                <app-progresso [progresso]="progresso" ></app-progresso>
+                
+            </div>
+            <div class="col-sm-auto">
+                <app-tentativas [tentativas]="tentativas"></app-tentativas>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h6>{{instrucao}}</h6>
+                <p>{{rodadaFrase.fraseEng}}</p>
+
+                <div class="form-floating">
+                    <textarea class="form-control" [value]="resposta" placeholder="Leave a comment here" id="floatingTextarea" (input)="atualizaResposta($event)" ></textarea>
+                    <label for="floatingTextarea">Resposta</label>
+                  </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-end mt-1">
+            <div class="col-auto">
+                <button class="btn btn-primary" (click)="verificarResposta($event)" >
+                    Verificar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
