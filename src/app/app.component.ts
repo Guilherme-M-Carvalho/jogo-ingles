@@ -10,4 +10,21 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'Guilherme';
+  jogoEmAndamento: boolean = true
+  tipoEncerramento: boolean = true
+
+  encerrarJogo(tipo: string): void {
+    this.jogoEmAndamento = false
+    if(tipo === "derrota"){
+      this.tipoEncerramento = false
+    } else {
+      this.tipoEncerramento = true
+    }
+
+  }
+
+  reiniciarJogo(){
+    this.jogoEmAndamento = true
+    this.tipoEncerramento = true
+  }
 }

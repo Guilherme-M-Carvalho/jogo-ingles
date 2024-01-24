@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 
 import { FraseModel } from '../shared/frase.model';
 
@@ -9,7 +9,7 @@ import { frases } from './frases-mock';
   templateUrl: './painel.component.html',
   styleUrl: './painel.component.scss'
 })
-export class PainelComponent {
+export class PainelComponent implements OnDestroy {
   public frases: FraseModel[] = frases
   public resposta: string = ""
   instrucao: string = "Traduza a frase:"
@@ -17,6 +17,8 @@ export class PainelComponent {
   rodadaFrase: FraseModel = this.frases[this.rodada]
   progresso: number = 0;
   tentativas: number = 3
+
+  @Output() public encerrarJogo: EventEmitter<string> = new EventEmitter()
 
 
   atualizaResposta(event: Event): void {
@@ -28,6 +30,10 @@ export class PainelComponent {
       this.rodada++
       this.updateFrase()
       this.updateProgress()
+      if (this.rodada === 4) {
+        this.encerrarJogo.emit("vitoria")
+
+      }
     } else {
       this.updateTentativas()
     }
@@ -46,7 +52,12 @@ export class PainelComponent {
   updateTentativas() {
     this.tentativas--
     if (this.tentativas === -1) {
-
+      this.encerrarJogo.emit("derrota")
     }
+  }
+
+  ngOnDestroy(): void {
+    console.log("Destruido");
+    
   }
 }
